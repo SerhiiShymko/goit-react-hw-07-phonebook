@@ -9,12 +9,12 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { contactsApi } from '../api/apiContacts';
+import { apiContacts } from './apiContacts';
 
 export const store = configureStore({
   reducer: {
     contacts: persisteContactReducer,
-    [contactsApi.reducerPath]: contactsApi.reducer,
+    [apiContacts.reducerPath]: apiContacts.reducer,
   },
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware(
@@ -23,7 +23,7 @@ export const store = configureStore({
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
       },
-      contactsApi.middleware
+      apiContacts.middleware
     );
   },
 });
