@@ -8,6 +8,6 @@
 .item:last-child {
   margin-bottom: 0;
 }
-.item:hover {
+/* .item:hover {
   text-decoration: line-through;
-}
+} */
