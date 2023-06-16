@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import css from './Contact.module.css';
 import { FaTrashAlt, FaUserAlt } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/contacts-slise';
+import { deleteContact } from 'redux/contacts/contacts-operations';
 
 function Contact({ name, number, contactId }) {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ function Contact({ name, number, contactId }) {
         <span className={css.icon}>
           <FaUserAlt />
         </span>
-        <p>{name}</p>
+        <p className={css.title}>{name}</p>
       </div>
       <div className={css.wrap}>
         <p className={css.number}>{number}</p>

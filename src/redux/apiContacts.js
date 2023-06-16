@@ -1,22 +1,10 @@
-// import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-// export const contactsApi = createApi({
-//   reducerPath: 'contactsApi',
-//   baseQuery: fetchBaseQuery({
-//     baseUrl: 'https://648860930e2469c038fd986c.mockapi.io/api/v1',
-//   }),
-
-//   endpoints: builder => ({
-//     fetchContacts: builder.query({
-//       query: () => '/contacts',
-//     }),
-//   }),
-// });
 import axios from 'axios';
 
+const url = axios.create({
+  baseURL: 'https://63ebe5f3be929df00ca4038a.mockapi.io/contacts',
+});
+
 export const apiContacts = async () => {
-  const { data } = await axios(
-    'https://648860930e2469c038fd986c.mockapi.io/api/v1/contacts'
-  );
+  const { data } = await url.get('/');
   return data;
 };

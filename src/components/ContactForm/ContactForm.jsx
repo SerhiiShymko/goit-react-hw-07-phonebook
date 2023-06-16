@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Report } from 'notiflix/build/notiflix-report-aio';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import css from './ContactForm.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from 'redux/contacts-slise';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/contacts/contacts-selectors';
+import { addContact } from 'redux/contacts/contacts-operations';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -19,7 +19,7 @@ export const ContactForm = () => {
   const onSubmitForm = e => {
     e.preventDefault();
 
-    const newElement = { id: nanoid(), name, number };
+    // const newElement = { id: nanoid(), name, number };
 
     contacts.some(contact => contact.name === name)
       ? Report.warning(
@@ -27,7 +27,7 @@ export const ContactForm = () => {
           'This user is already in the contact list.',
           'OK'
         )
-      : dispatch(addContact(newElement));
+      : dispatch(addContact({ name, number }));
 
     reset();
   };
@@ -40,7 +40,7 @@ export const ContactForm = () => {
   return (
     <form className={css.form} onSubmit={onSubmitForm}>
       <label className={css.label}>
-        <span className={css.title}>Name</span>
+        <span>Name</span>
         <input
           className={css.input}
           onChange={onChangeName}

@@ -1,14 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import css from './Filter.module.css';
-import { getFilter } from 'redux/selectors';
-import { filterContact } from 'redux/contacts-slise';
+import { selectFilter } from 'redux/filter/filters-selectors';
+import { setFilter } from 'redux/filter/filter-slise';
 
 export const Filter = () => {
-  const filter = useSelector(getFilter);
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
 
+  const onSetFilter = payload => {
+    dispatch(setFilter(payload));
+  };
   const onChange = event => {
-    dispatch(filterContact(event.currentTarget.value));
+    onSetFilter(event.target.value);
   };
 
   return (

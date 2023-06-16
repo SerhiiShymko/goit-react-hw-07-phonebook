@@ -3,11 +3,24 @@ import { ContactList } from 'components/ContactList/ContactList';
 import { Filter } from 'components/Filter/Filter';
 import { Message } from 'components/Message/Message';
 import css from './App.module.css';
-import { useSelector } from 'react-redux';
-import { getContacts } from 'redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectContacts,
+  selectError,
+  selectIsLoading,
+} from 'redux/contacts/contacts-selectors';
+import { fetchContacts } from 'redux/contacts/contacts-operations';
+import { useEffect } from 'react';
 
 export const App = () => {
-  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+  const contacts = useSelector(selectContacts);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <div className={css.wrapper}>
@@ -16,6 +29,8 @@ export const App = () => {
 
       <h2 className={css.subtitle}>Contacts</h2>
       <Filter />
+      {isLoading && !error && <b>Loading...</b>}
+      {error && error}
       {contacts.length > 0 ? <ContactList /> : <Message />}
     </div>
   );
